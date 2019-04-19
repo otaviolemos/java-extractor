@@ -52,8 +52,8 @@ public class FolderInputProcessor implements IInputProcessor{
     	System.out.println("Extracting from " + file.getName());
         JavaExtractor.FILE_COUNTER++;
         CompilationUnit cu = StaticJavaParser.parse(file);
-        //TreeVisitor visitor = new CustomVisitor(file);
-        //visitor.visitPreOrder(cu);
+        TreeVisitor visitor = new CustomVisitor(file);
+        visitor.visitPreOrder(cu);
     }
 
 }

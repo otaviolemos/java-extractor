@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,8 +12,10 @@ import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.type.ReferenceType;
 import com.github.javaparser.ast.visitor.TreeVisitor;
@@ -40,8 +43,32 @@ public class CustomVisitor extends TreeVisitor {
   }
   
   @Override
-	public void process(Node node) {
-       // extract identifiers and save to file (?)
-	}
+  public void process(Node node) {
+	  if (node instanceof MethodDeclaration) {
+		  MethodDeclaration m = (MethodDeclaration) node;
+		  try {
+			FileWriters.identifiersFileWriter.append("method: " + m.getNameAsString());
+			FileWriters.identifiersFileWriter.append("\n");
+		  } catch (IOException e) {
+			System.out.println("Failed to append method name to identifiers file.");
+			e.printStackTrace();
+		  }
+	  }
+	  if (node instanceof FieldDeclaration) {
+		  FieldDeclaration f = (FieldDeclaration) node;
+		  try {
+			NodeList<VariableDeclarator> nl = f.getVariables();
+			Iterator<VariableDeclarator> i = nl.iterator();
+			while(i.hasNext()) {
+			  VariableDeclarator vd = i.next();
+			  FileWriters.identifiersFileWriter.append("field: " + vd.getNameAsString());
+			  FileWriters.identifiersFileWriter.append("\n");
+			}
+		  } catch (IOException e) {
+			System.out.println("Failed to append method name to identifiers file.");
+			e.printStackTrace();
+		  }
+	  }
+  }
 
 }
