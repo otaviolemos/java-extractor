@@ -12,7 +12,9 @@ import java.io.UnsupportedEncodingException;
 public class JavaExtractor {
 	
     public String outputDirPath;
-    public String identifiersFileName;
+    public String methodIdentifiersFileName;
+    public String fieldIdentifiersFileName;
+    public String varIdentifiersFileName;
     public String errorsFileName;
     public static String prefix;
     public static String fileIdPrefix;
@@ -21,7 +23,9 @@ public class JavaExtractor {
     private IInputProcessor inputProcessor;
 
     public JavaExtractor(String inputFilePath) {
-        this.identifiersFileName = "identifiers.file";
+        this.methodIdentifiersFileName = "method-ids.file";
+        this.fieldIdentifiersFileName = "field-ids.file";
+        this.varIdentifiersFileName = "variable-ids.file";
         this.errorsFileName = "errors.file";
         JavaExtractor.prefix = this.getBaseName(inputFilePath);
         JavaExtractor.fileIdPrefix = "1";
@@ -43,12 +47,16 @@ public class JavaExtractor {
     }
 
     private void initializeWriters() throws IOException {
-        FileWriters.identifiersFileWriter = Util.openFile(this.outputDirPath + File.separator + this.identifiersFileName, false);
-        FileWriters.errorsFileWriter = Util.openFile(this.outputDirPath + File.pathSeparator + this.errorsFileName, false);
+        FileWriters.methodIdentifiersFW = Util.openFile(this.outputDirPath + File.separator + this.methodIdentifiersFileName, false);
+        FileWriters.fieldIdentifiersFW = Util.openFile(this.outputDirPath + File.separator + this.fieldIdentifiersFileName, false);
+        FileWriters.varIdentifiersFW = Util.openFile(this.outputDirPath + File.separator + this.varIdentifiersFileName, false);
+        FileWriters.errorsFileWriter = Util.openFile(this.outputDirPath + File.separator + this.errorsFileName, false);
     }
 
     private void closeWriters() {
-        Util.closeOutputFile(FileWriters.identifiersFileWriter);
+        Util.closeOutputFile(FileWriters.methodIdentifiersFW);
+        Util.closeOutputFile(FileWriters.fieldIdentifiersFW);
+        Util.closeOutputFile(FileWriters.varIdentifiersFW);
     }
 
     private void handleInput(String inputMode, String filename) {
@@ -79,8 +87,10 @@ public class JavaExtractor {
 
 
 	public static void main(String[] args) throws FileNotFoundException {
+		System.out.println("Working Directory = " +
+	              System.getProperty("user.dir"));
         if (args.length > 0) {
-            //System.out.println(args);
+            System.out.println(args[0]);
             String filename = args[0];
             String inputMode = args[1];
             JavaExtractor javaExtractor = new JavaExtractor(filename);
