@@ -3,15 +3,12 @@ package unifesp.seg;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 
-import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseProblemException;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.TreeVisitor;
-import com.github.javaparser.printer.YamlPrinter;
 
 public class FolderInputProcessor implements IInputProcessor{
     

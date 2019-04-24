@@ -15,6 +15,8 @@ public class JavaExtractor {
     public String methodIdentifiersFileName;
     public String fieldIdentifiersFileName;
     public String varIdentifiersFileName;
+    public String classIdentifiersFileName;
+    public String interfaceIdentifiersFileName;
     public String errorsFileName;
     public static String prefix;
     public static String fileIdPrefix;
@@ -26,6 +28,8 @@ public class JavaExtractor {
         this.methodIdentifiersFileName = "method-ids.file";
         this.fieldIdentifiersFileName = "field-ids.file";
         this.varIdentifiersFileName = "variable-ids.file";
+        this.classIdentifiersFileName = "class-ids.file";
+        this.interfaceIdentifiersFileName = "interface-ids.file";
         this.errorsFileName = "errors.file";
         JavaExtractor.prefix = this.getBaseName(inputFilePath);
         JavaExtractor.fileIdPrefix = "1";
@@ -50,6 +54,9 @@ public class JavaExtractor {
         FileWriters.methodIdentifiersFW = Util.openFile(this.outputDirPath + File.separator + this.methodIdentifiersFileName, false);
         FileWriters.fieldIdentifiersFW = Util.openFile(this.outputDirPath + File.separator + this.fieldIdentifiersFileName, false);
         FileWriters.varIdentifiersFW = Util.openFile(this.outputDirPath + File.separator + this.varIdentifiersFileName, false);
+        FileWriters.classIdentifiersFW = Util.openFile(this.outputDirPath + File.separator + this.classIdentifiersFileName, false);
+        FileWriters.interfaceIdentifiersFW = Util.openFile(this.outputDirPath + File.separator + this.interfaceIdentifiersFileName, false);
+        
         FileWriters.errorsFileWriter = Util.openFile(this.outputDirPath + File.separator + this.errorsFileName, false);
     }
 
@@ -57,6 +64,8 @@ public class JavaExtractor {
         Util.closeOutputFile(FileWriters.methodIdentifiersFW);
         Util.closeOutputFile(FileWriters.fieldIdentifiersFW);
         Util.closeOutputFile(FileWriters.varIdentifiersFW);
+        Util.closeOutputFile(FileWriters.classIdentifiersFW);
+        Util.closeOutputFile(FileWriters.interfaceIdentifiersFW);
     }
 
     private void handleInput(String inputMode, String filename) {
