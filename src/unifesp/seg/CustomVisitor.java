@@ -20,6 +20,7 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.visitor.TreeVisitor;
@@ -48,9 +49,11 @@ public class CustomVisitor extends TreeVisitor {
 
   @Override
   public void process(Node node) {
-
-    // for comments: JavadocComment; LineComment
-
+    
+    if(node instanceof Comment) {
+     System.out.println(((Comment) node).getContent()); 
+    }
+    
     if (node instanceof ClassOrInterfaceDeclaration) {
       ClassOrInterfaceDeclaration coid = (ClassOrInterfaceDeclaration) node;
       if (!coid.isInterface()) {
