@@ -20,11 +20,17 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.comments.BlockComment;
 import com.github.javaparser.ast.comments.Comment;
+import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.visitor.TreeVisitor;
 
+/**
+ * Represents a student enrolled in the school.
+ * A student can be enrolled in many courses.
+ */
 public class CustomVisitor extends TreeVisitor {
   File file;
   String fileContent;
@@ -51,7 +57,14 @@ public class CustomVisitor extends TreeVisitor {
   public void process(Node node) {
     
     if(node instanceof Comment) {
-     System.out.println(((Comment) node).getContent()); 
+    	Comment cn = (Comment) node;
+    	try {
+            FileWriters.commentsFW.append(cn.getContent());
+            FileWriters.commentsFW.append("\n");
+          } catch (IOException e) {
+            System.out.println("Failed to append comment to comments file.");
+            e.printStackTrace();
+          }
     }
     
     if (node instanceof ClassOrInterfaceDeclaration) {

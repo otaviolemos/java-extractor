@@ -22,14 +22,14 @@ public class FolderInputProcessor implements IInputProcessor{
             } catch (FileNotFoundException e) {
                 System.out.println("WARN: File not found, skipping file: " + f.getAbsolutePath());
                 try {
-                    FileWriters.errorsFileWriter.write(f.getAbsolutePath() + System.lineSeparator());
+                    FileWriters.errorsFW.write(f.getAbsolutePath() + System.lineSeparator());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
             } catch (ParseProblemException e) {
                 System.out.println("WARN: parse problem exception, skippig file: " + f.getAbsolutePath());
                 try {
-                    FileWriters.errorsFileWriter.write(f.getAbsolutePath() + System.lineSeparator());
+                    FileWriters.errorsFW.write(f.getAbsolutePath() + System.lineSeparator());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -37,7 +37,7 @@ public class FolderInputProcessor implements IInputProcessor{
             } catch (Exception e) {
                 System.out.println("WARN: unknown error, skippig file: " + f.getAbsolutePath());
                 try {
-                    FileWriters.errorsFileWriter.write(f.getAbsolutePath() + System.lineSeparator());
+                    FileWriters.errorsFW.write(f.getAbsolutePath() + System.lineSeparator());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
